@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package proto;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "../gen/proto/company";
+
+service CompanyService {
+  rpc GetById(CompanyId) returns(Company);
+  rpc Create(Company) returns(CompanyId);
+  rpc Update(Company) returns(google.protobuf.Empty);
+  rpc Delete(CompanyId) returns(google.protobuf.Empty);
+  rpc IsExist(CompanyId) returns(Bool);
+  rpc GetList(google.protobuf.Empty) returns(CompanyList);
+}
+
+message CompanyId {
+  int64 Id = 1;
+}
+
+message Company {
+  int64 id = 1;                                                    // Уникальный идентификатор компании
+  string nameRu = 2;                                               // Название компании на русском
+  string nameEn = 3;                                               // Название компании на английском
+  string country = 4;                                               // Страна компании
+  string address = 5;                                               // Адрес компании
+  string phone = 6;                                                 // Телефон компании
+  string email = 7;                                                 // Электронная почта компании
+  string website = 8;                                               // Веб-сайт компании
+  bool isActive = 9;                                               // Статус активности компании
+  google.protobuf.Timestamp created_at = 10;                        // Дата и время создания компании
+  google.protobuf.Timestamp updated_at = 11;                        // Дата и время последнего обновления компании
+  bool isApproved = 12;                                            // Подтвержденная ли компания
+  string timezone = 13;                                             // Временная зона компании
+}
+
+message CompanyList {
+  repeated Company companies = 1;
+}
+
+message Bool {
+  bool IsExist = 1;
+}

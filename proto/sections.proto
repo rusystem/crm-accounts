@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package proto;
+
+import "google/protobuf/empty.proto";
+
+option go_package = "../gen/proto/sections";
+
+service SectionsService {
+  rpc GetById(SectionsId) returns(Section);
+  rpc Create(Section) returns(SectionsId);
+  rpc Update(Section) returns(google.protobuf.Empty);
+  rpc Delete(SectionsId) returns(google.protobuf.Empty);
+  rpc GetList(google.protobuf.Empty) returns(SectionList);
+}
+
+message SectionsId {
+  int64 Id = 1;
+}
+
+message Section {
+  int64 id = 1;      // Уникальный идентификатор секции
+  string name = 2;   // Название секции
+}
+
+message SectionList {
+  repeated Section sections = 1;
+}
